@@ -1,0 +1,27 @@
+#+author: yvnth
+#+options: toc:nil
+
+*** A preview of the current configuration
+
+[[file:.github/assets/screenshot.png]]
+
+* How to use
+
+Add =nixmacs= to your =flake.nix= inputs:
+
+#+begin_src nix
+inputs = {
+  nixpkgs.url = "github:NixOS/nixpkgs";
+
+  nixmacs = {
+    url = "github:yvnth/nixmacs";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+};
+#+end_src
+
+* Notes
+
+This config is still under active development, so you may encounter bugs or breaking changes from time to time.
+
+For the complete list of keybindings, see [[file:KEYBINDS.org][KEYBINDS.org]]

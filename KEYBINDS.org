@@ -1,0 +1,281 @@
+#+author: yvnth
+#+title: Emacs Keybindings
+#+options: toc:nil
+
+** Vanilla Emacs - Quitting
+| Key     | Description                          |
+|---------+--------------------------------------|
+| C-x C-c | Save buffers (asks) and quit Emacs   |
+| C-g     | Cancel current command or prompt     |
+| C-x k   | Close current buffer                 |
+| C-z     | Suspend/iconify Emacs (terminal/GUI) |
+
+** Vanilla Emacs - Files
+| Key       | Description                               |
+|-----------+-------------------------------------------|
+| C-x C-f   | Open a file                               |
+| C-x C-v   | Open another file, killing current buffer |
+| C-x C-s   | Save current buffer                       |
+| C-x C-w   | Save buffer as a different file           |
+| C-x s     | Save all buffers, asking for each         |
+| C-u C-x s | Save all buffers, no asking               |
+| C-x C-q   | Toggle read-only mode                     |
+| C-x i     | Insert contents of a file at point        |
+
+** Vanilla Emacs - Buffers
+| Key         | Description              |
+|-------------+--------------------------|
+| C-x b       | Switch to another buffer |
+| C-x C-b     | List all buffers         |
+| C-x k       | Kill a buffer            |
+| C-x <right> | Move to next buffer      |
+| C-x <left>  | Move to previous buffer  |
+
+** Vanilla Emacs - Navigation
+| Key       | Description                     |
+|-----------+---------------------------------|
+| C-a       | Go to start of line             |
+| C-e       | Go to end of line               |
+| C-k       | Kill from cursor to end of line |
+| M-<       | Move to top of buffer           |
+| M->       | Move to bottom of buffer        |
+| M-f       | Move forward one word           |
+| M-b       | Move backward one word          |
+| M-g g <n> | Go to line number n             |
+| M-g c <n> | Go to character position n      |
+
+** Vanilla Emacs - Bookmarks
+| Key     | Description                     |
+|---------+---------------------------------|
+| C-x r m | Add current buffer to bookmarks |
+| C-x r b | Open a buffer from bookmarks    |
+| C-x r l | List bookmarks                  |
+
+** Vanilla Emacs - Search
+| Key   | Description                                       |
+|-------+---------------------------------------------------|
+| C-s   | Forward search / jump to next match               |
+| C-r   | Backward search / jump to previous match          |
+| M-%   | Query-replace                                     |
+| C-g   | Exit search                                       |
+| M-s . | Find symbol under cursor                          |
+| M-s w | Find symbol under cursor, matching separators too |
+| M-s o | List all matching lines (occur)                   |
+
+** Vanilla Emacs - Select, Copy, Cut, Paste
+| Key   | Description                |
+|-------+----------------------------|
+| C-_   | Undo                       |
+| C-x u | Redo                       |
+| C-SPC | Begin selection (set mark) |
+| C-g   | Cancel selection           |
+| C-x h | Select the whole buffer    |
+| M-w   | Copy                       |
+| C-y   | Paste (yank)               |
+| C-w   | Cut (kill region)          |
+
+** Vanilla Emacs - Word Case / Comments
+| Key | Description                         |
+|-----+-------------------------------------|
+| M-u | Make word uppercase                 |
+| M-l | Make word lowercase                 |
+| M-c | Capitalize word (first letter only) |
+| M-; | Comment/uncomment selected code     |
+
+** Vanilla Emacs - Windows
+| Key   | Description                            |
+|-------+----------------------------------------|
+| C-x 0 | Delete current window                  |
+| C-x 1 | Delete all windows except current      |
+| C-x 2 | Split window horizontally (stacked)    |
+| C-x 3 | Split window vertically (side by side) |
+| C-x o | Switch to other window                 |
+
+** Vanilla Emacs - Tabs
+| Key         | Description          |
+|-------------+----------------------|
+| C-x t 2     | Create a new tab     |
+| C-x t 0     | Close current tab    |
+| C-x t r     | Rename current tab   |
+| C-x t o     | Switch to next tab   |
+| C-x t RIGHT | Move to next tab     |
+| C-x t LEFT  | Move to previous tab |
+
+** Vanilla Emacs - Frames
+| Key     | Description                     |
+|---------+---------------------------------|
+| C-x 5 0 | Close current frame             |
+| C-x 5 1 | Close all frames except current |
+| C-x 5 2 | Create a new frame              |
+| C-x 5 o | Switch to another frame         |
+| C-z     | Minimize current frame          |
+| C-x 5 f | Open file in a new frame        |
+| C-x 5 b | Switch to buffer in a new frame |
+
+** Vanilla Emacs - Restricted Editing (Narrowing)
+| Key     | Description                        |
+|---------+------------------------------------|
+| C-x n n | Narrow to selected region          |
+| C-x n w | Widen back to full buffer          |
+| C-x n d | Narrow to current function (defun) |
+
+** Vanilla Emacs - Keyboard Macros
+| Key          | Description                 |
+|--------------+-----------------------------|
+| C-x (        | Start recording a macro     |
+| C-x )        | Stop recording a macro      |
+| C-x e / <f4> | Run the last recorded macro |
+
+** Vanilla Emacs - Help
+| Key   | Description                            |
+|-------+----------------------------------------|
+| C-h ? | Show all help options                  |
+| C-h a | Apropos: search commands by keyword    |
+| C-h i | Open Info documentation reader         |
+| C-h f | Describe a function                    |
+| C-h v | Describe a variable                    |
+| C-h m | Describe current major/minor modes     |
+| C-h b | List all keybindings in current buffer |
+| C-h k | Describe what a specific key does      |
+
+** Vanilla Emacs - Text Editing
+| Key         | Description                                  |
+|-------------+----------------------------------------------|
+| M-/         | Dabbrev - autocomplete word from buffer text |
+| M-del       | Delete previous word                         |
+| M-d         | Delete next word                             |
+| C-x C-o     | Delete blank lines around cursor             |
+| M-q         | Justify/re-align current paragraph           |
+| C-x C-minus | Decrease font size                           |
+| C-x C-plus  | Increase font size                           |
+
+** Vanilla Emacs - Indentation
+| Key     | Description                                      |
+|---------+--------------------------------------------------|
+| M-m     | Move to first non-whitespace char on line        |
+| C-M-\   | Indent all lines in a region                     |
+| C-x TAB | Indent region rigidly (then use arrows to shift) |
+
+** Vanilla Emacs - Lisp Editing (all Lisp dialects)
+| Key   | Description                              |
+|-------+------------------------------------------|
+| M-(   | Wrap selection in parentheses            |
+| M-[   | Wrap selection in square brackets        |
+| M-{   | Wrap selection in curly brackets         |
+| C-M-n | Move forward over a parenthetical group  |
+| C-M-p | Move backward over a parenthetical group |
+| C-M-f | Move forward over a balanced expression  |
+| C-M-b | Move backward over a balanced expression |
+| C-M-k | Delete the s-expression under cursor     |
+| C-M-a | Move to beginning of current function    |
+| C-M-e | Move to end of current function          |
+
+** Vanilla Emacs - Dired (file manager)
+| Key     | Description                                       |
+|---------+---------------------------------------------------|
+| C-x d   | Open Dired on a directory                         |
+| C-x 4 d | Open Dired in another window                      |
+| C-x 5 d | Open Dired in another frame                       |
+| f       | Open file/dir at point, in current window         |
+| o       | Open file/dir at point, in another window         |
+| +       | Create a new directory                            |
+| (       | Toggle showing file details                       |
+| C-x C-q | Make listing editable (C-c C-c to commit renames) |
+| w       | Copy filename (relative) to kill ring             |
+| C-0 w   | Copy full filename path to kill ring              |
+| m       | Mark file/directory                               |
+| u       | Unmark file                                       |
+| t       | Toggle marks on all files                         |
+| X or !  | Run shell command on file at point                |
+| M-!     | Run shell command on marked files                 |
+| &       | Run async shell command on file(s)                |
+| s       | Change sort order                                 |
+| D       | Delete file                                       |
+| g       | Refresh/revert Dired buffer                       |
+| R       | Rename/move file                                  |
+| y       | Show file type                                    |
+| q       | Quit Dired buffer                                 |
+
+** Vanilla Emacs - Misc Useful Commands (M-x)
+| Command                    | Description                                                 |
+|----------------------------+-------------------------------------------------------------|
+| delete-trailing-whitespace | Strip trailing whitespace/^M from buffer                    |
+| tabify / untabify          | Convert spaces to tabs / tabs to spaces                     |
+| whitespace-mode            | Toggle visualization of whitespace characters               |
+| linum-mode                 | Toggle line numbers (legacy; display-line-numbers-mode now) |
+| revert-buffer              | Reload buffer from disk                                     |
+| auto-revert-mode           | Auto-reload buffer when file changes on disk                |
+| auto-revert-tail-mode      | Follow a growing file, like tail -f                         |
+| rename-buffer              | Rename the current buffer                                   |
+| auto-fill-mode             | Auto-wrap paragraphs as you type                            |
+| shell-command (M-!)        | Run a shell command, show output in a buffer                |
+| async-shell-command (M-&)  | Run a long-running/async shell command                      |
+| compile                    | Run a compile command (press g to re-run)                   |
+| find-name-dired            | Find files by name pattern, show results in Dired           |
+| find-grep-dired            | Find files whose contents match a grep pattern              |
+| rgrep                      | Search file contents recursively with grep                  |
+| locate                     | Search files via the locate database                        |
+
+** Custom - Buffers/Navigation
+| Key     | Command               | Description                        |
+|---------+-----------------------+------------------------------------|
+| C-,     | embark-act            | Run action on completion candidate |
+| C-.     | embark-dwim           | Embark "do what I mean"            |
+| C-h B   | embark-bindings       | Show embark keybindings            |
+| C-s     | consult-line          | Search in current buffer           |
+| C-x b   | consult-buffer        | Enhanced buffer switch             |
+| C-x C-r | consult-recent-file   | Open a recently used file          |
+| M-g g   | consult-goto-line     | Jump to a line number              |
+| M-g e   | consult-compile-error | Jump to a compile error            |
+| M-s f   | consult-find          | Fuzzy-find a file                  |
+| M-s r   | consult-ripgrep       | Ripgrep search across files        |
+| M-A     | marginalia-cycle      | Cycle detail level of annotations  |
+
+** Custom - Git
+| Key   | Command      | Description         |
+|-------+--------------+---------------------|
+| C-x g | magit-status | Open Magit (Git UI) |
+
+** Custom - LSP
+| Key   | Description                   |
+|-------+-------------------------------|
+| C-c l | LSP command prefix (lsp-mode) |
+
+** Custom - Debugging (DAP)
+| Key     | Command               | Description              |
+|---------+-----------------------+--------------------------|
+| C-c d d | dap-debug             | Start a debug session    |
+| C-c d l | dap-debug-last        | Re-run last debug config |
+| C-c d b | dap-breakpoint-toggle | Toggle a breakpoint      |
+| C-c d c | dap-continue          | Continue execution       |
+| C-c d n | dap-next              | Step over                |
+| C-c d s | dap-step-in           | Step into                |
+| C-c d o | dap-step-out          | Step out                 |
+| C-c d q | dap-disconnect        | Disconnect the debugger  |
+
+** Custom - Org-roam Notes (C-c n)
+| Key       | Command                         | Description                  |
+|-----------+---------------------------------+------------------------------|
+| C-c n f   | org-roam-node-find              | Find/open a note             |
+| C-c n i   | org-roam-node-insert            | Insert a link to a note      |
+| C-c n c   | org-roam-capture                | Capture a new note           |
+| C-c n b   | org-roam-buffer-toggle          | Toggle backlinks buffer      |
+| C-c n U   | org-roam-ui-open                | Open the graph visualization |
+| C-c n s   | org-roam-db-sync                | Sync the org-roam database   |
+| C-c n d t | org-roam-dailies-goto-today     | Go to today's daily note     |
+| C-c n d y | org-roam-dailies-goto-yesterday | Go to yesterday's daily note |
+| C-c n d d | org-roam-dailies-goto-date      | Go to a specific daily note  |
+| C-c n d c | org-roam-dailies-capture-today  | Capture into today's note    |
+
+** Custom - Terminal (Ghostel)
+| Key   | Command                      | Description                              |
+|-------+------------------------------+------------------------------------------|
+| C-x m | ghostel                      | Open Ghostel terminal                    |
+| -     | ghostel-project              | Open project terminal (via project menu) |
+| -     | ghostel-project-list-buffers | List project terminal buffers            |
+
+** Custom - Dired (overrides)
+| Key | Command                   | Description                                  |
+|-----+---------------------------+----------------------------------------------|
+| RET | dired-find-alternate-file | Open file/dir, reusing the same Dired buffer |
+| ^   | (custom, up-directory)    | Go up a directory, reusing the same buffer   |
