@@ -30,7 +30,6 @@
         consult
         dap-mode
         dashboard
-        doom-modeline
         embark
         embark-consult
         flycheck

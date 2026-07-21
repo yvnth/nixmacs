@@ -1,4 +1,4 @@
-#+author: yvnth
+#+AUTHOR: yvnth
 #+options: toc:nil
 
 *** A preview of the current configuration

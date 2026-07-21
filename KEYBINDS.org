@@ -1,5 +1,5 @@
-#+author: yvnth
-#+title: Emacs Keybindings
+#+TITLE: Emacs Keybindings
+#+AUTHOR: yvnth
 #+options: toc:nil
 
 ** Vanilla Emacs - Quitting

@@ -41,16 +41,6 @@
           :fringe-width          4))
   (spacious-padding-mode 1))
 
-(tab-bar-mode 1)
-(setq tab-bar-show            t
-      tab-bar-new-tab-choice  "*scratch*"
-      tab-bar-close-button-show nil
-      tab-bar-new-button-show   nil
-      tab-bar-tab-hints         t)
-
-(doom-modeline-mode 1)
-(setq doom-modeline-height 35)
-
 (use-package all-the-icons
   :if (display-graphic-p))
 
@@ -63,9 +53,8 @@
   (setq dashboard-center-content     t
         dashboard-banner-logo-title  "Sup yvnth!"
         dashboard-startup-banner     "/home/yvnth/repos/nixmacs/.github/assets/logo.png"
-        dashboard-image-banner-max-width 300
-        dashboard-items              '((recents  . 5)
-                                       (projects . 5))
+        dashboard-image-banner-max-width 400
+        dashboard-items              nil
         initial-buffer-choice        (lambda () (get-buffer-create dashboard-buffer-name)))
   :config
   (dashboard-setup-startup-hook)
@@ -124,7 +113,9 @@
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
-  :config (lsp-enable-which-key-integration t))
+  :config
+  (lsp-enable-which-key-integration t))
+  (setq lsp-headerline-breadcrumb-enable nil)
 
 (use-package lsp-ui :commands lsp-ui-mode)
 
