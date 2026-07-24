@@ -1,5 +1,5 @@
-#+AUTHOR: yvnth
-#+options: toc:nil
+#+AUTHOR: Yashwanth Prasannakumar (yvnth)
+#+OPTIONS: toc:nil
 
 *** A preview of the current configuration
 

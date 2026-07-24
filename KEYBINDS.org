@@ -1,6 +1,6 @@
 #+TITLE: Emacs Keybindings
-#+AUTHOR: yvnth
-#+options: toc:nil
+#+AUTHOR: Yashwanth Prasannakumar (yvnth)
+#+OPTIONS: toc:nil
 
 ** Vanilla Emacs - Quitting
 | Key     | Description                          |
@@ -271,8 +271,6 @@
 | Key   | Command                      | Description                              |
 |-------+------------------------------+------------------------------------------|
 | C-x m | ghostel                      | Open Ghostel terminal                    |
-| -     | ghostel-project              | Open project terminal (via project menu) |
-| -     | ghostel-project-list-buffers | List project terminal buffers            |
 
 ** Custom - Dired (overrides)
 | Key | Command                   | Description                                  |

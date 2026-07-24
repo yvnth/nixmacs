@@ -12,9 +12,12 @@
     lldb
     nerd-fonts.jetbrains-mono
     nixd
+    nixfmt
     pyright
+    ruff
     rust-analyzer
     rustc
+    rustfmt
     sbcl
     sqlite
   ];
@@ -25,9 +28,10 @@
     extraPackages =
       epkgs: with epkgs; [
         all-the-icons
+        apheleia
         catppuccin-theme
-        company
         consult
+        corfu
         dap-mode
         dashboard
         embark
@@ -35,7 +39,9 @@
         flycheck
         ghostel
         go-mode
+        justl
         lsp-mode
+        lsp-pyright
         lsp-ui
         magit
         marginalia

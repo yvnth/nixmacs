@@ -1,15 +1,20 @@
+;; -*- lexical-binding: t; -*-
+
+;; startup speed
 (setq gc-cons-threshold (* 50 1024 1024))
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 2 1024 1024))
             (message "up in %s" (emacs-init-time))))
 
+;; theme
 (use-package catppuccin-theme
   :demand t
   :config
   (setq catppuccin-flavor 'frappe)
   (load-theme 'catppuccin t))
 
+;; ui cleanup
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
@@ -17,17 +22,39 @@
 (menu-bar-mode   -1)
 (set-fringe-mode 10)
 
+;; font
 (set-frame-font "JetBrainsMono Nerd Font-18" nil t)
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-18"))
 
+;; icon fallback
 (when (display-graphic-p)
   (set-fontset-font t 'unicode "JetBrainsMono Nerd Font" nil 'append))
 
+;; line numbers
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
+;; no beep
 (setq ring-bell-function 'ignore)
 
+;; backups and auto saves, moved out of project folders
+(setq backup-directory-alist
+      '(("." . "~/.ebt/backups")))
+(setq auto-save-file-name-transforms
+      '((".*" "~/.ebt/auto-saves/" t)))
+(make-directory "~/.ebt/backups" t)
+(make-directory "~/.ebt/auto-saves" t)
+
+;; disable lock files
+(setq create-lockfiles nil)
+
+;; remember minibuffer history
+(savehist-mode 1)
+
+;; remember cursor position per file
+(save-place-mode 1)
+
+;; window padding
 (use-package spacious-padding
   :demand t
   :config
@@ -41,12 +68,15 @@
           :fringe-width          4))
   (spacious-padding-mode 1))
 
+;; icons
 (use-package all-the-icons
   :if (display-graphic-p))
 
+;; colored matching parens
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;; startup screen
 (use-package dashboard
   :demand t
   :init
@@ -60,18 +90,21 @@
   (dashboard-setup-startup-hook)
   (dashboard-insert-startupify-lists))
 
+;; minibuffer completion ui
 (use-package vertico
   :demand t
   :config
   (vertico-mode 1)
   (setq vertico-cycle t))
 
+;; fuzzy completion filtering
 (use-package orderless
   :demand t
   :config
   (setq completion-styles             '(orderless basic)
         completion-category-overrides '((file (styles basic partial-completion)))))
 
+;; actions on completion candidates
 (use-package embark
   :bind (("C-," . embark-act)
          ("C-." . embark-dwim)
@@ -79,10 +112,12 @@
   :config
   (setq prefix-help-command #'embark-prefix-help-command))
 
+;; embark + consult glue
 (use-package embark-consult
   :after (embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+;; search and navigation commands
 (use-package consult
   :bind (("C-s"     . consult-line)
          ("C-x b"   . consult-buffer)
@@ -95,36 +130,76 @@
   (setq xref-show-xrefs-function       #'consult-xref
         xref-show-definitions-function #'consult-xref))
 
+;; completion candidate annotations
 (use-package marginalia
   :demand t
   :bind (:map minibuffer-local-map
          ("M-A" . marginalia-cycle))
   :config (marginalia-mode 1))
 
+;; keybinding hints
 (use-package which-key
   :demand t
   :init (which-key-mode)
   :config (setq which-key-idle-delay 0))
 
+;; git
 (use-package magit
   :commands magit-status
   :bind ("C-x g" . magit-status))
 
+;; lsp performance
+(setq read-process-output-max (* 1024 1024))
+
+;; language server client
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :init (setq lsp-keymap-prefix "C-c l")
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-idle-delay 0.2)
+  (setq lsp-completion-provider :none)
   :config
-  (lsp-enable-which-key-integration t))
   (setq lsp-headerline-breadcrumb-enable nil)
+  (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 
-(use-package company
-  :config
-  (setq company-idle-delay           0.0
-        company-minimum-prefix-length 1)
-  (global-company-mode t))
+;; syntax checking
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
 
+;; auto format on save
+(use-package apheleia
+  :config
+  (setf (alist-get 'nixfmt apheleia-formatters) '("nixfmt"))
+  (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
+  (setf (alist-get 'python-mode apheleia-mode-alist) 'ruff)
+  (apheleia-global-mode +1))
+
+;; auto close paranthesis except for org <s<TAB>
+(electric-indent-mode 1)
+(electric-pair-mode 1)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local electric-pair-inhibit-predicate
+                        (lambda (c)
+                          (if (char-equal c ?<)
+                              t
+                            (electric-pair-default-inhibit c))))))
+
+;; autocomplete popup
+(use-package corfu
+  :init
+  (global-corfu-mode)
+  :config
+  (setq corfu-auto t
+        corfu-auto-delay 0.0
+        corfu-auto-prefix 1
+        corfu-cycle t))
+
+;; debugger
 (use-package dap-mode
   :after lsp-mode
   :bind (("C-c d d" . dap-debug)
@@ -142,29 +217,39 @@
   (require 'dap-go)
   (dap-go-setup))
 
+;; nix
 (use-package nix-mode
   :mode "\\.nix\\'"
   :hook (nix-mode . lsp-deferred))
 
+;; go
 (use-package go-mode
   :mode "\\.go\\'"
   :hook (go-mode . lsp-deferred))
 
+;; rust
 (use-package rust-mode
   :mode "\\.rs\\'"
-  :hook (rust-mode . lsp-deferred)
-  :config
-  (setq rust-format-on-save t))
+  :hook (rust-mode . lsp-deferred))
 
+;; c, c++, only lsp
 (add-hook 'c-mode-hook     'lsp-deferred)
 (add-hook 'c++-mode-hook   'lsp-deferred)
-(add-hook 'python-mode-hook 'lsp-deferred)
 
+;; python
+(use-package lsp-pyright
+  :custom (lsp-pyright-langserver-command "pyright")
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred))))
+
+;; structural editing for parens
 (use-package paredit
   :hook ((lisp-mode       . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (scheme-mode     . paredit-mode)))
 
+;; pretty print lambda and nil
 (defun nixmacs-lisp-prettify ()
   (setq prettify-symbols-alist
         '(("lambda"  . ?λ)
@@ -173,6 +258,7 @@
 (add-hook 'lisp-mode-hook       #'nixmacs-lisp-prettify)
 (add-hook 'emacs-lisp-mode-hook #'nixmacs-lisp-prettify)
 
+;; org mode styling
 (use-package org-modern
   :hook
   (org-mode            . org-modern-mode)
@@ -182,6 +268,7 @@
         org-modern-table        t
         org-modern-block-fringe 8))
 
+;; org mode, reveal markup under cursor
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
   :config
@@ -190,6 +277,10 @@
         org-appear-autoentities   t
         org-appear-autokeywords   t))
 
+;; org tempo (<s<TAB>, <q<TAB>, etc.)
+(require 'org-tempo)
+
+;; networked notes
 (use-package org-roam
   :demand t
   :bind (("C-c n f" . org-roam-node-find)
@@ -237,6 +328,7 @@
   (make-directory org-roam-directory t)
   (org-roam-db-autosync-mode))
 
+;; org roam graph ui
 (use-package org-roam-ui
   :after org-roam
   :config
@@ -245,17 +337,18 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start  nil))
 
-(use-package ghostel
-  :commands (ghostel ghostel-project ghostel-project-list-buffers)
-  :bind (("C-x m" . ghostel)
-         :map project-prefix-map
-         ("m" . ghostel-project)
-         ("M" . ghostel-project-list-buffers))
-  :config
-  (add-to-list 'project-switch-commands '(ghostel-project "Ghostel") t)
-  (add-to-list 'project-switch-commands '(ghostel-project-list-buffers "Ghostel buffers") t)
-  (add-to-list 'ghostel-eval-cmds '("magit-status-setup-buffer" magit-status-setup-buffer)))
+;; justfile runner
+(use-package justl
+  :commands justl
+  :custom
+  (justl-executable "just"))
 
+;; terminal
+(use-package ghostel
+  :commands (ghostel)
+  :bind (("C-x m" . ghostel)))
+
+;; dired, reuse buffer on navigation
 (use-package dired
   :ensure nil
   :config
