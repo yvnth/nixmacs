@@ -60,12 +60,12 @@
   :config
   (setq spacious-padding-widths
         '(:internal-border-width 10
-          :header-line-width     2
-          :mode-line-width       2
-          :tab-width             2
-          :right-divider-width   12
-          :scroll-bar-width      4
-          :fringe-width          4))
+				 :header-line-width     2
+				 :mode-line-width       2
+				 :tab-width             2
+				 :right-divider-width   12
+				 :scroll-bar-width      4
+				 :fringe-width          4))
   (spacious-padding-mode 1))
 
 ;; icons
@@ -134,7 +134,7 @@
 (use-package marginalia
   :demand t
   :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+              ("M-A" . marginalia-cycle))
   :config (marginalia-mode 1))
 
 ;; keybinding hints
@@ -175,6 +175,11 @@
   (setf (alist-get 'nixfmt apheleia-formatters) '("nixfmt"))
   (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
   (setf (alist-get 'python-mode apheleia-mode-alist) 'ruff)
+  (setf (alist-get 'sh-mode apheleia-mode-alist) 'shfmt)
+  (setf (alist-get 'dockerfile apheleia-formatters) '("dockerfmt"))
+  (setf (alist-get 'dockerfile-mode apheleia-mode-alist) 'dockerfile)
+  (setf (alist-get 'yamlfmt apheleia-formatters) '("yamlfmt" "-in"))
+  (setf (alist-get 'yaml-mode apheleia-mode-alist) 'yamlfmt)
   (apheleia-global-mode +1))
 
 ;; auto close paranthesis except for org <s<TAB>
@@ -235,6 +240,19 @@
 ;; c, c++, only lsp
 (add-hook 'c-mode-hook     'lsp-deferred)
 (add-hook 'c++-mode-hook   'lsp-deferred)
+
+;; dockerfile
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'"
+  :hook (dockerfile-mode . lsp-deferred))
+
+;; bash
+(add-hook 'sh-mode-hook 'lsp-deferred)
+
+;; yaml
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'"
+  :hook (yaml-mode . lsp-deferred))
 
 ;; python
 (use-package lsp-pyright
@@ -354,6 +372,6 @@
   :config
   (setq dired-kill-when-opening-new-dired-buffer t)
   :bind (:map dired-mode-map
-         ("RET" . dired-find-alternate-file)
-         ("^"   . (lambda () (interactive)
-                    (find-alternate-file "..")))))
+              ("RET" . dired-find-alternate-file)
+              ("^"   . (lambda () (interactive)
+			 (find-alternate-file "..")))))

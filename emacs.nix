@@ -4,8 +4,11 @@
 }:
 {
   home.packages = with pkgs; [
+    bash-language-server
     cargo
     clang-tools
+    dockerfile-language-server
+    dockerfmt
     go
     gopls
     graphviz
@@ -19,7 +22,11 @@
     rustc
     rustfmt
     sbcl
+    shellcheck
+    shfmt
     sqlite
+    yaml-language-server
+    yamlfmt
   ];
 
   programs.emacs = {
@@ -34,6 +41,7 @@
         corfu
         dap-mode
         dashboard
+        dockerfile-mode
         embark
         embark-consult
         flycheck
@@ -60,6 +68,7 @@
         vertico
         websocket
         which-key
+        yaml-mode
       ];
     extraConfig = builtins.readFile ./init.el;
   };
