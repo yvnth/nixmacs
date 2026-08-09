@@ -4,12 +4,14 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
+
   outputs =
     {
       nixpkgs,
       emacs-overlay,
       ...
     }:
+
     let
       supportedSystems = [
         "x86_64-linux"
@@ -18,6 +20,7 @@
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
+
     {
       homeManagerModules.default = import ./emacs.nix;
       packages = forAllSystems (
@@ -43,6 +46,7 @@
           allEmacsPkgs = epkgs: (emacsPackages epkgs) ++ [ configPkg ];
           emacsWithConfig = (pkgs.emacsPackagesFor baseEmacs).emacsWithPackages allEmacsPkgs;
         in
+
         {
           default = pkgs.symlinkJoin {
             name = "nixmacs";
