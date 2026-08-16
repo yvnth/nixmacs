@@ -20,8 +20,4 @@ inputs = {
 };
 #+end_src
 
-* Notes
-
-This config is still under active development, so you may encounter bugs or breaking changes from time to time.
-
 For the complete list of keybindings, see [[file:KEYBINDS.org][KEYBINDS.org]]
