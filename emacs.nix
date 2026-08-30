@@ -28,10 +28,9 @@
     yaml-language-server
     yamlfmt
   ];
-
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs;
+    package = pkgs.emacs-pgtk;
     extraPackages =
       epkgs: with epkgs; [
         all-the-icons
@@ -57,8 +56,6 @@
         orderless
         org-appear
         org-modern
-        org-roam
-        org-roam-ui
         paredit
         rainbow-delimiters
         rust-mode
@@ -66,7 +63,6 @@
         treesit-grammars.with-all-grammars
         use-package
         vertico
-        websocket
         which-key
         yaml-mode
       ];

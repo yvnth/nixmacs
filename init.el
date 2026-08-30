@@ -298,63 +298,6 @@
 ;; org tempo (<s<TAB>, <q<TAB>, etc.)
 (require 'org-tempo)
 
-;; networked notes
-(use-package org-roam
-  :demand t
-  :bind (("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ("C-c n b" . org-roam-buffer-toggle)
-         ("C-c n U" . org-roam-ui-open)
-         ("C-c n s" . org-roam-db-sync)
-         ("C-c n d t" . org-roam-dailies-goto-today)
-         ("C-c n d y" . org-roam-dailies-goto-yesterday)
-         ("C-c n d d" . org-roam-dailies-goto-date)
-         ("C-c n d c" . org-roam-dailies-capture-today))
-  :init (setq org-roam-v2-ack t)
-  :custom
-  (org-roam-directory (file-truename "~/org/roam"))
-  (org-roam-completion-everywhere t)
-  (org-roam-dailies-directory "daily/")
-  (org-roam-capture-templates
-   '(("d" "default" plain
-      "%?"
-      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n#+date: %U\n#+filetags: \n\n")
-      :unnarrowed t)
-     ("f" "fleeting" plain
-      "* %?\n\n%i"
-      :target (file+head "fleeting/%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n#+date: %U\n#+filetags: :fleeting:\n\n")
-      :unnarrowed t)
-     ("l" "literature" plain
-      "* Source\n- Author: %^{Author}\n- URL: %^{URL}\n\n* Notes\n%?\n\n* Summary\n"
-      :target (file+head "literature/%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n#+date: %U\n#+filetags: :literature:\n\n")
-      :unnarrowed t)
-     ("p" "permanent" plain
-      "%?"
-      :target (file+head "permanent/%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n#+date: %U\n#+filetags: :permanent:\n\n")
-      :unnarrowed t)))
-  (org-roam-dailies-capture-templates
-   '(("d" "default" entry
-      "* %<%H:%M> %?"
-      :target (file+head "%<%Y-%m-%d>.org"
-                         "#+title: %<%Y-%m-%d>\n#+filetags: :daily:\n\n"))))
-  :config
-  (make-directory org-roam-directory t)
-  (org-roam-db-autosync-mode))
-
-;; org roam graph ui
-(use-package org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme     t
-        org-roam-ui-follow         t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start  nil))
-
 ;; justfile runner
 (use-package justl
   :commands justl

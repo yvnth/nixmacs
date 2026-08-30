@@ -1,18 +1,13 @@
 #+AUTHOR: Yashwanth Prasannakumar (yvnth)
 #+OPTIONS: toc:nil
 
-*** A preview of the current configuration
-
 [[file:.github/assets/screenshot.png]]
 
 * How to use
 
 Add =nixmacs= to your =flake.nix= inputs:
-
 #+begin_src nix
 inputs = {
-  nixpkgs.url = "github:NixOS/nixpkgs";
-
   nixmacs = {
     url = "github:yvnth/nixmacs";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -20,4 +15,9 @@ inputs = {
 };
 #+end_src
 
-For the complete list of keybindings, see [[file:KEYBINDS.org][KEYBINDS.org]]
+Apply =nixmacs='s =emacs-overlay= in your system's =nixpkgs.overlays=:
+#+begin_src nix
+nixpkgs.overlays = [
+  nixmacs.inputs.emacs-overlay.overlays.default
+];
+#+end_src
