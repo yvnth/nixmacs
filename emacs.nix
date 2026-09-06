@@ -2,6 +2,7 @@
   pkgs,
   ...
 }:
+
 {
   home.packages = with pkgs; [
     bash-language-server
@@ -28,6 +29,7 @@
     yaml-language-server
     yamlfmt
   ];
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
@@ -55,7 +57,6 @@
         nix-mode
         orderless
         org-appear
-        org-modern
         paredit
         rainbow-delimiters
         rust-mode
@@ -66,6 +67,7 @@
         which-key
         yaml-mode
       ];
+
     extraConfig = builtins.readFile ./init.el;
   };
 }

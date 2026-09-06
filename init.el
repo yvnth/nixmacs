@@ -81,7 +81,7 @@
   :demand t
   :init
   (setq dashboard-center-content     t
-        dashboard-banner-logo-title  "Sup yvnth!"
+        dashboard-banner-logo-title  "வணக்கம் yvnth"
         dashboard-startup-banner     "/home/yvnth/repos/nixmacs/.github/assets/logo.png"
         dashboard-image-banner-max-width 400
         dashboard-items              nil
@@ -266,25 +266,6 @@
   :hook ((lisp-mode       . paredit-mode)
          (emacs-lisp-mode . paredit-mode)
          (scheme-mode     . paredit-mode)))
-
-;; pretty print lambda and nil
-(defun nixmacs-lisp-prettify ()
-  (setq prettify-symbols-alist
-        '(("lambda"  . ?λ)
-          ("nil"     . ?∅)))
-  (prettify-symbols-mode 1))
-(add-hook 'lisp-mode-hook       #'nixmacs-lisp-prettify)
-(add-hook 'emacs-lisp-mode-hook #'nixmacs-lisp-prettify)
-
-;; org mode styling
-(use-package org-modern
-  :hook
-  (org-mode            . org-modern-mode)
-  (org-agenda-finalize . org-modern-agenda)
-  :config
-  (setq org-modern-star         '("◉" "○" "✸" "✿")
-        org-modern-table        t
-        org-modern-block-fringe 8))
 
 ;; org mode, reveal markup under cursor
 (use-package org-appear

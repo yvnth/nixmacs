@@ -1,7 +1,7 @@
 #+AUTHOR: Yashwanth Prasannakumar (yvnth)
 #+OPTIONS: toc:nil
 
-[[file:.github/assets/screenshot.png]]
+[[file:.github/assets/preview.png]]
 
 * How to use
 

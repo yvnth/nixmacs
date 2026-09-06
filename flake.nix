@@ -38,7 +38,7 @@
           emacsConfig = mod.programs.emacs.extraConfig;
           emacsPackages = mod.programs.emacs.extraPackages;
           lspPackages = mod.home.packages;
-          baseEmacs = if pkgs.stdenv.isDarwin then pkgs.emacs else pkgs.emacs-pgtk;
+          baseEmacs = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.emacs else pkgs.emacs-pgtk;
           configPkg = pkgs.runCommand "nixmacs-config" { } ''
             mkdir -p $out/share/emacs/site-lisp
             cp ${pkgs.writeText "default.el" emacsConfig} $out/share/emacs/site-lisp/default.el
