@@ -8,11 +8,11 @@
     bash-language-server
     cargo
     clang-tools
+    direnv
     dockerfile-language-server
     dockerfmt
     go
     gopls
-    graphviz
     lldb
     nerd-fonts.jetbrains-mono
     nixd
@@ -25,7 +25,6 @@
     sbcl
     shellcheck
     shfmt
-    sqlite
     yaml-language-server
     yamlfmt
   ];
@@ -42,12 +41,15 @@
         corfu
         dap-mode
         dashboard
+        docker
         dockerfile-mode
         embark
         embark-consult
+        envrc
         flycheck
         ghostel
         go-mode
+        just-ts-mode
         justl
         lsp-mode
         lsp-pyright

@@ -1,4 +1,9 @@
-;; -*- lexical-binding: t; -*-
+;;; init.el --- yvnth's emacs config -*- lexical-binding: t; -*-
+
+;;; Commentary:
+;; Packages managed by Nix (emacs.nix).
+
+;;; Code:
 
 ;; startup speed
 (setq gc-cons-threshold (* 50 1024 1024))
@@ -82,7 +87,7 @@
   :init
   (setq dashboard-center-content     t
         dashboard-banner-logo-title  "வணக்கம் yvnth"
-        dashboard-startup-banner     "/home/yvnth/repos/nixmacs/.github/assets/logo.png"
+        dashboard-startup-banner     "/home/yvnth/repos/nixmacs/assets/logo.png"
         dashboard-image-banner-max-width 400
         dashboard-items              nil
         initial-buffer-choice        (lambda () (get-buffer-create dashboard-buffer-name)))
@@ -148,6 +153,9 @@
   :commands magit-status
   :bind ("C-x g" . magit-status))
 
+;; docker
+(use-package docker)
+
 ;; lsp performance
 (setq read-process-output-max (* 1024 1024))
 
@@ -156,7 +164,7 @@
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-idle-delay 0.2)
+  (setq lsp-idle-delay 0.5)
   (setq lsp-completion-provider :none)
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
@@ -232,6 +240,12 @@
   :mode "\\.go\\'"
   :hook (go-mode . lsp-deferred))
 
+;; just
+(use-package just-ts-mode
+  :mode "\\(?:\\(?:^\\|/\\)[Jj]ustfile\\|\\.just\\)\\'"
+  :config
+  (just-ts-mode-install-grammar))
+
 ;; rust
 (use-package rust-mode
   :mode "\\.rs\\'"
@@ -290,12 +304,20 @@
   :commands (ghostel)
   :bind (("C-x m" . ghostel)))
 
+;; per-project env vars via direnv
+(use-package envrc
+  :demand t
+  :hook (after-init . envrc-global-mode))
+
 ;; dired, reuse buffer on navigation
 (use-package dired
   :ensure nil
   :config
+  (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-kill-when-opening-new-dired-buffer t)
   :bind (:map dired-mode-map
               ("RET" . dired-find-alternate-file)
               ("^"   . (lambda () (interactive)
 			 (find-alternate-file "..")))))
+
+;;; init.el ends here
